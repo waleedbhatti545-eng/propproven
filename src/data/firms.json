@@ -1,0 +1,141 @@
+[
+  {
+    "slug": "ftmo",
+    "name": "FTMO",
+    "logo": "https://ftmo.com/wp-content/themes/ftmo-com/public/images/logo-ftmo.svg",
+    "badge": "Best Overall",
+    "shortDesc": "The industry standard for prop trading with a proven track record. Reliable payouts and excellent support.",
+    "description": "FTMO is a modern proprietary trading firm based in Prague, Czech Republic. Founded in 2015, they provide serious traders with an opportunity to manage an FTMO Account up to $200,000 initial balance (scaling to $2M). They are known for their reliability, excellent customer support, and industry-leading trading conditions.",
+    "rating": 4.9,
+    "reviewCount": 5200,
+    "reviews": "5k+",
+    "trustpilot": true,
+    "trustpilotScore": 4.9,
+    "likes": 12500,
+    "ceo": "Otakar Suffner",
+    "countryCode": "cz",
+    "location": "Prague, Czech Republic",
+    "foundedDate": "2015",
+    "yearsOperational": 9,
+    "ratingDistribution": [4800, 300, 50, 20, 30],
+    "maxFunding": "$2M",
+    "profitSplit": "Up to 90%",
+    "scalingPlan": "25% every 4 months",
+    "payoutSpeed": "1-2 Days",
+    "payoutFrequency": "Bi-weekly / On-Demand",
+    "platformNames": ["MT4", "MT5", "cTrader", "DXtrade"],
+    "commissions": {
+      "forex": "$3/lot",
+      "indices": "Zero",
+      "crypto": "Zero",
+      "commodities": "$3/lot"
+    },
+    "leverage": {
+      "forex": "1:100",
+      "indices": "1:50",
+      "crypto": "1:5",
+      "commodities": "1:30"
+    },
+    "features": [
+      { "icon": "Split", "title": "Profit Split", "value": "Up to 90%" },
+      { "icon": "Monitor", "title": "Platforms", "value": "MT4, MT5, cTrader" },
+      { "icon": "Wallet", "title": "Account Sizes", "value": "$10K - $200K" },
+      { "icon": "Trophy", "title": "Challenge", "value": "2-Step" },
+      { "icon": "Zap", "title": "Payout Speed", "value": "1-2 Days" },
+      { "icon": "TrendingUp", "title": "Scaling", "value": "Available" }
+    ],
+    "pros": ["Reliable Payouts since 2015", "Excellent Support", "Great Trading Conditions", "Free Trial Available", "Refundable Fee"],
+    "cons": ["Higher Fees than Competitors", "Strict Rules on News (Normal Acc)", "No Crypto Weekend Trading"],
+    "instruments": ["Forex", "Metals", "Indices", "Crypto", "Stocks"],
+    "paymentMethods": ["Credit/Debit Card", "Crypto", "Skrill", "Nuvei"],
+    "payoutMethods": ["Bank Transfer", "Crypto", "Skrill"],
+    "dailyLoss": "5%",
+    "maxLoss": "10%",
+    "profitTarget": "10% / 5%",
+    "newsTrading": "Allowed (Swing)",
+    "weekendHolding": "Allowed (Swing)",
+    "eaTrading": "Allowed",
+    "discountCode": "PROVEN10",
+    "discountAmount": "10% OFF",
+    "color": "blue",
+    "accounts": [
+      { "size": "10k", "balance": "$10,000", "price": 164, "type": "2-Step", "targetPhase1": "$1,000", "targetPhase2": "$500", "maxDailyLoss": "$500 (5%)", "maxTotalLoss": "$1,000 (10%)", "duration": "Unlimited", "leverage": "1:100" },
+      { "size": "25k", "balance": "$25,000", "price": 275, "type": "2-Step", "targetPhase1": "$2,500", "targetPhase2": "$1,250", "maxDailyLoss": "$1,250 (5%)", "maxTotalLoss": "$2,500 (10%)", "duration": "Unlimited", "leverage": "1:100" },
+      { "size": "50k", "balance": "$50,000", "price": 385, "type": "2-Step", "targetPhase1": "$5,000", "targetPhase2": "$2,500", "maxDailyLoss": "$2,500 (5%)", "maxTotalLoss": "$5,000 (10%)", "duration": "Unlimited", "leverage": "1:100" },
+      { "size": "100k", "balance": "$100,000", "price": 605, "type": "2-Step", "targetPhase1": "$10,000", "targetPhase2": "$5,000", "maxDailyLoss": "$5,000 (5%)", "maxTotalLoss": "$10,000 (10%)", "duration": "Unlimited", "leverage": "1:100" },
+      { "size": "200k", "balance": "$200,000", "price": 1195, "type": "2-Step", "targetPhase1": "$20,000", "targetPhase2": "$10,000", "maxDailyLoss": "$10,000 (5%)", "maxTotalLoss": "$20,000 (10%)", "duration": "Unlimited", "leverage": "1:100" }
+    ],
+    "userReviews": [
+      { "id": "1", "author": "John D.", "date": "Jan 15, 2026", "rating": 5, "title": "Industry Standard", "content": "FTMO is simply the best. Payouts are always on time and support is amazing.", "verified": true, "helpfulCount": 12 },
+      { "id": "2", "author": "Sarah M.", "date": "Jan 10, 2026", "rating": 5, "title": "Great Spreads", "content": "Spreads are tight and execution is instant. Love the dashboard analytics.", "verified": true, "helpfulCount": 8 }
+    ]
+  },
+  {
+    "slug": "e8-markets",
+    "name": "E8 Markets",
+    "logo": "https://e8markets.com/img/logo-e8.svg",
+    "badge": "Fastest Growth",
+    "shortDesc": "Innovative tech-driven firm. Unique scaling opportunities and fast payouts.",
+    "description": "E8 Markets is a proprietary trading firm incorporated in the USA, offering funding for traders worldwide. They have developed their own user-friendly technology and dashboard. E8 is known for its fast scaling plan and 'E8 Track' program which offers lower entry barriers.",
+    "rating": 4.8,
+    "reviewCount": 2200,
+    "reviews": "2k+",
+    "trustpilot": true,
+    "trustpilotScore": 4.8,
+    "likes": 8500,
+    "ceo": "Dylan Elchami",
+    "countryCode": "us",
+    "location": "Dallas, USA",
+    "foundedDate": "Nov 2021",
+    "yearsOperational": 4,
+    "ratingDistribution": [1900, 200, 50, 20, 30],
+    "maxFunding": "$1M",
+    "profitSplit": "80%",
+    "scalingPlan": "Drawdown increases with profits",
+    "payoutSpeed": "8 Days (First)",
+    "payoutFrequency": "Bi-weekly",
+    "platformNames": ["MT5", "MatchTrader"],
+    "commissions": {
+      "forex": "$3/lot",
+      "indices": "Zero",
+      "crypto": "Zero",
+      "commodities": "Zero"
+    },
+    "leverage": {
+      "forex": "1:100",
+      "indices": "1:50",
+      "crypto": "1:5",
+      "commodities": "1:50"
+    },
+    "features": [
+      { "icon": "Split", "title": "Profit Split", "value": "80%" },
+      { "icon": "Monitor", "title": "Platforms", "value": "MT5, MatchTrader" },
+      { "icon": "Wallet", "title": "Account Sizes", "value": "$25K - $250K" },
+      { "icon": "Trophy", "title": "Challenge", "value": "2-Step / 3-Step" },
+      { "icon": "Zap", "title": "Payout Speed", "value": "8 Days" },
+      { "icon": "TrendingUp", "title": "Scaling", "value": "Dynamic" }
+    ],
+    "pros": ["Fast Payouts", "User-Friendly Dashboard", "Low Spreads", "Free Retries"],
+    "cons": ["Slippage on News", "MT4 Removed", "Weekend Downgrades"],
+    "instruments": ["Forex", "Commodities", "Indices", "Crypto"],
+    "paymentMethods": ["Credit Card", "Crypto", "Rise"],
+    "payoutMethods": ["Riseworks", "Crypto", "Bank Transfer"],
+    "dailyLoss": "5%",
+    "maxLoss": "8%",
+    "profitTarget": "8% / 5%",
+    "newsTrading": "Allowed",
+    "weekendHolding": "Allowed",
+    "eaTrading": "Allowed",
+    "discountCode": "PROP5",
+    "discountAmount": "5% OFF",
+    "color": "yellow",
+    "accounts": [
+      { "size": "25k", "balance": "$25,000", "price": 138, "promoPrice": 120, "type": "2-Step", "targetPhase1": "$2,000", "targetPhase2": "$1,250", "maxDailyLoss": "$1,250 (5%)", "maxTotalLoss": "$2,000 (8%)", "duration": "Unlimited", "leverage": "1:50" },
+      { "size": "50k", "balance": "$50,000", "price": 228, "type": "2-Step", "targetPhase1": "$4,000", "targetPhase2": "$2,500", "maxDailyLoss": "$2,500 (5%)", "maxTotalLoss": "$4,000 (8%)", "duration": "Unlimited", "leverage": "1:50" },
+      { "size": "100k", "balance": "$100,000", "price": 428, "type": "2-Step", "targetPhase1": "$8,000", "targetPhase2": "$5,000", "maxDailyLoss": "$5,000 (5%)", "maxTotalLoss": "$8,000 (8%)", "duration": "Unlimited", "leverage": "1:50" }
+    ],
+    "userReviews": [
+      { "id": "1", "author": "Mike T.", "date": "Jan 12, 2026", "rating": 5, "title": "Best Tech", "content": "The dashboard is miles ahead of others. Very smooth execution.", "verified": true, "helpfulCount": 5 }
+    ]
+  }
+]
