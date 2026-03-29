@@ -22,6 +22,7 @@ export default function FirmEditor() {
     badge: "",
     shortDesc: "",
     description: "",
+    status: "Live",
     color: "#4f46e5",
     ceo: "",
     countryCode: "us",
@@ -321,6 +322,29 @@ export default function FirmEditor() {
                 <div className="grid grid-cols-2 gap-6">
                   <FormField label="Firm Name" value={firm.name || ""} onChange={(e) => setFirm({ ...firm, name: e.target.value })} />
                   <FormField label="Database Slug Identifier (URL)" value={firm.slug || ""} onChange={(e) => setFirm({ ...firm, slug: e.target.value })} placeholder="e.g. ftmo" />
+                  
+                  <div className="space-y-2 col-span-2">
+                    <label className="text-sm font-medium text-neutral-300 ml-1">Firm Operation Engine Status</label>
+                    <div className="relative">
+                      <select 
+                        value={firm.status || "Live"} 
+                        onChange={(e) => setFirm({ ...firm, status: e.target.value })}
+                        className={`w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white appearance-none placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-brand-red/50 transition-all font-bold ${
+                          firm.status === 'Scam' || firm.status === 'Closed' ? 'text-red-500' : 
+                          firm.status === 'Draft' ? 'text-yellow-500' : 'text-emerald-500'
+                        }`}
+                      >
+                        <option value="Live" className="bg-neutral-900 text-emerald-500">Live (Public)</option>
+                        <option value="Draft" className="bg-neutral-900 text-yellow-500">Draft (Hidden)</option>
+                        <option value="Closed" className="bg-neutral-900 text-red-500">Closed Operations</option>
+                        <option value="Scam" className="bg-neutral-900 text-red-600 font-black">Scam Watchlist</option>
+                      </select>
+                      <div className="absolute inset-y-0 right-4 flex items-center pointer-events-none text-neutral-400">
+                         <ChevronDown className="w-4 h-4" />
+                      </div>
+                    </div>
+                    <p className="text-xs text-neutral-500 ml-1">Drafts/Scams are removed from homepage grids. Scam/Closed show a deep red banner if users find the direct URL.</p>
+                  </div>
                 </div>
                 <FormField label="Logo Image URL" type="url" value={firm.logo || ""} onChange={(e) => setFirm({ ...firm, logo: e.target.value })} />
                 <div className="grid grid-cols-2 gap-6">

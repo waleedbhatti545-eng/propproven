@@ -20,7 +20,8 @@ export function FeaturedFirms({ firms }: { firms: FirmData[] }) {
         }, 2000);
     };
 
-    const finalFirms = firms.filter(f => f.is_featured === true).sort((a, b) => (a.featured_order || 0) - (b.featured_order || 0));
+    // Enforce Global Status Engine: Only "Live" featured firms are mapped
+    const finalFirms = firms.filter(f => f.is_featured === true && (!f.status || f.status === "Live")).sort((a, b) => (a.featured_order || 0) - (b.featured_order || 0));
 
     // If no firms are explicitly featured, we hide the section entirely to respect admin settings
     if (finalFirms.length === 0) return null;

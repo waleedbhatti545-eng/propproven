@@ -1,7 +1,7 @@
 "use client";
 
 import { FirmData } from "@/data/firms";
-import { ShieldCheck, Star, ExternalLink, Share2, Heart, Trophy, Percent, Zap, Clock, ChevronRight, Copy, Check } from "lucide-react";
+import { ShieldCheck, Star, ExternalLink, Share2, Heart, Trophy, Percent, Zap, Clock, ChevronRight, Copy, Check, ShieldAlert } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useState } from "react";
@@ -16,6 +16,12 @@ export function FirmHeroCard({ firm }: { firm: FirmData }) {
             navigator.clipboard.writeText(firm.discountCode);
             setCopied(true);
             setTimeout(() => setCopied(false), 2000);
+            // Track promo click for analytics
+            fetch("/api/track-promo", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ firm_slug: firm.slug, discount_code: firm.discountCode, page_path: window.location.pathname }),
+            }).catch(() => {});
         }
     };
 
@@ -32,7 +38,6 @@ export function FirmHeroCard({ firm }: { firm: FirmData }) {
                 <div className="absolute -left-[10%] top-0 w-[50%] h-[50%] bg-red-900/10 blur-[100px] rounded-full"></div>
             </div>
 
-            {/* Breadcrumbs */}
             <div className="relative z-10 max-w-7xl mx-auto flex items-center gap-2 text-xs text-gray-400 mb-8 pl-1 font-medium tracking-wide uppercase">
                 <Link href="/" className="hover:text-white transition-colors">Home</Link>
                 <ChevronRight className="w-3 h-3 text-gray-600" />
@@ -40,6 +45,37 @@ export function FirmHeroCard({ firm }: { firm: FirmData }) {
                 <ChevronRight className="w-3 h-3 text-gray-600" />
                 <span className="text-white bg-white/5 px-2 py-0.5 rounded border border-white/5">{firm.name}</span>
             </div>
+
+            {/* SCAM / CLOSED WARNING BANNER */}
+            {(firm.status === 'Scam' || firm.status === 'Closed') && (
+                <div className="relative z-20 max-w-7xl mx-auto mb-10 bg-black/80 backdrop-blur-3xl border-2 border-red-600 rounded-3xl p-6 sm:p-8 shadow-[0_0_80px_rgba(220,38,38,0.3)] overflow-hidden animate-in fade-in slide-in-from-top-10 duration-700">
+                    <div className="absolute inset-0 bg-[repeating-linear-gradient(45deg,transparent,transparent_10px,rgba(220,38,38,0.1)_10px,rgba(220,38,38,0.1)_20px)] opacity-50 block"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-red-600/20 to-transparent animate-pulse block"></div>
+                    <div className="relative flex flex-col lg:flex-row items-center justify-between gap-6 text-center lg:text-left">
+                        <div className="flex flex-col sm:flex-row items-center gap-6">
+                            <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-red-500 to-red-900 flex items-center justify-center shrink-0 shadow-[0_0_40px_rgba(220,38,38,0.5)] border border-red-400 relative overflow-hidden">
+                                <div className="absolute inset-0 bg-white/20 animate-ping"></div>
+                                <ShieldAlert className="w-10 h-10 text-white relative z-10" />
+                            </div>
+                            <div>
+                                <h2 className="text-3xl sm:text-4xl font-black text-white tracking-widest uppercase mb-2 drop-shadow-md">
+                                    {firm.status === 'Scam' ? 'WARNING: SCAM FIRM' : 'FIRM CLOSED'}
+                                </h2>
+                                <p className="text-red-200 text-sm sm:text-lg font-medium max-w-2xl leading-relaxed">
+                                    {firm.status === 'Scam' 
+                                        ? `Do not purchase from ${firm.name}. Our intelligence network has flagged this entity. Your capital is at severe risk.` 
+                                        : `${firm.name} has ceased operations. You can no longer purchase challenges from this firm.`}
+                                </p>
+                            </div>
+                        </div>
+                        <Link href="/firms" className="w-full lg:w-auto shrink-0">
+                            <Button className="w-full lg:w-auto bg-white hover:bg-gray-200 text-red-600 font-black tracking-[0.2em] px-10 py-7 rounded-xl border-4 border-red-600 shadow-[0_10px_40px_rgba(220,38,38,0.5)] whitespace-nowrap text-lg transition-transform hover:scale-[1.03]">
+                                RETURN TO DIRECTORY
+                            </Button>
+                        </Link>
+                    </div>
+                </div>
+            )}
 
             {/* MAIN CARD CONTAINER: Ultra Glass + RED SHADOW */}
             <div className="relative z-10 max-w-7xl mx-auto rounded-[32px] p-[1px] bg-gradient-to-b from-white/10 via-white/5 to-transparent shadow-[0_20px_50px_rgba(255,0,0,0.15)] backdrop-blur-3xl">

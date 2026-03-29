@@ -27,6 +27,22 @@ export function Header() {
     }, []);
 
     const pathname = usePathname();
+
+    // Silent page view tracking for analytics
+    useEffect(() => {
+        if (pathname && !pathname.startsWith("/admin")) {
+            fetch("/api/track", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    page_path: pathname,
+                    firm_slug: pathname.startsWith("/firms/") ? pathname.split("/firms/")[1] : null,
+                    referrer: document.referrer || null,
+                }),
+            }).catch(() => {});
+        }
+    }, [pathname]);
+
     if (pathname?.startsWith("/admin") || pathname?.startsWith("/sign-in") || pathname?.startsWith("/sign-up") || pathname?.startsWith("/login")) return null;
 
     return (

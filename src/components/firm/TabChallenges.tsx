@@ -74,7 +74,7 @@ export function TabChallenges({ firm }: { firm: FirmData }) {
             </div>
 
             {/* TABLE */}
-            <div className="overflow-x-auto rounded-xl border border-white/5 bg-[#121212]">
+            <div className="overflow-x-auto rounded-xl border border-white/5 bg-[#121212] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none]">
                 <table className="w-full min-w-[800px] border-collapse">
                     <thead>
                         <tr className="border-b border-white/5 text-left bg-[#1A1A1A]/50">
@@ -100,7 +100,7 @@ export function TabChallenges({ firm }: { firm: FirmData }) {
                                     </td>
 
                                     {/* TYPE (Dynamic Tag) */}
-                                    <td className="py-4 px-6">
+                                    <td className="py-4 px-6 whitespace-nowrap">
                                         <span className={cn(
                                             "border text-xs px-2.5 py-1 rounded-full font-bold tracking-wide",
                                             account.type === "2-Step" ? "bg-brand-orange/10 border-brand-orange/20 text-brand-orange" :

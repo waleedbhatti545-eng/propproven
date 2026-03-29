@@ -49,7 +49,8 @@ export default function FirmsClient({ initialFirms }: { initialFirms: any[] }) {
     const [sortBy, setSortBy] = useState("rating");
 
     const filteredFirms = useMemo(() => {
-        let results = initialFirms;
+        // Enforce Global Status Engine: Only show "Live" public firms
+        let results = initialFirms.filter(f => !f.status || f.status === "Live");
 
         if (search.trim()) {
             const q = search.toLowerCase();

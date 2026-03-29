@@ -29,7 +29,8 @@ export interface AccountTier {
 }
 
 export interface Review {
-    id: string;
+    id: string; // uuid
+    firm_slug?: string; // Foreign key
     author: string;
     date: string;
     rating: number;
@@ -37,6 +38,7 @@ export interface Review {
     content: string;
     verified: boolean;
     helpfulCount: number;
+    status?: string; // Added for Review Moderation (Pending, Approved, Rejected, Featured)
 }
 
 export interface FirmData {
@@ -45,7 +47,8 @@ export interface FirmData {
     logo: string;
     websiteUrl?: string;
     affiliateLink?: string;
-    badge: string;
+    badge?: string; // e.g. "Best Overall", "Most Secure"
+    status?: string; // e.g. "Live", "Draft", "Closed", "Scam"
     shortDesc: string;
     description: string;
     rating: number;
@@ -104,6 +107,9 @@ export interface FirmData {
 
     is_featured?: boolean;
     featured_order?: number;
+    
+    is_popular?: boolean;
+    popular_order?: number;
 
     accounts: AccountTier[];
     userReviews: Review[];

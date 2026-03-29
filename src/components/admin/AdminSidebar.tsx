@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { supabase } from "@/utils/supabase";
-import { LayoutDashboard, Building2, Settings, LogOut, Ticket, Star } from "lucide-react";
+import { LayoutDashboard, Building2, Settings, LogOut, Ticket, Star, Flame, MessageSquareWarning, BarChart3, Mail, MousePointerClick, Bell, Users } from "lucide-react";
 
 export function AdminSidebar() {
   const pathname = usePathname();
@@ -17,7 +17,14 @@ export function AdminSidebar() {
     { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
     { name: "Firm Manager", href: "/admin/firms", icon: Building2 },
     { name: "Featured Rank", href: "/admin/featured", icon: Star },
+    { name: "Popular Rank", href: "/admin/popular", icon: Flame },
     { name: "Promos", href: "/admin/promos", icon: Ticket },
+    { name: "Review Moderation", href: "/admin/reviews", icon: MessageSquareWarning },
+    { name: "Analytics", href: "/admin/analytics", icon: BarChart3 },
+    { name: "Subscribers", href: "/admin/subscribers", icon: Mail },
+    { name: "Promo Clicks", href: "/admin/promo-analytics", icon: MousePointerClick },
+    { name: "Notifications", href: "/admin/notifications", icon: Bell },
+    { name: "Team", href: "/admin/team", icon: Users },
     { name: "Global Settings", href: "/admin/settings", icon: Settings },
   ];
 
@@ -28,9 +35,9 @@ export function AdminSidebar() {
         <Image
           src="/images/logo.png"
           alt="PropProven Admin"
-          width={180}
-          height={48}
-          className="h-9 w-auto object-contain transition-transform duration-500 hover:scale-105"
+          width={240}
+          height={64}
+          className="h-14 w-auto object-contain transition-transform duration-500 hover:scale-105"
           unoptimized
         />
         <div className="mt-3 flex items-center justify-center gap-2">
@@ -45,7 +52,7 @@ export function AdminSidebar() {
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 space-y-2 px-4">
+      <nav className="flex-1 space-y-2 px-4 pb-4 overflow-y-auto overscroll-contain [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-white/10 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-white/20">
         {navItems.map((item) => {
           const isActive = pathname === item.href || (item.href !== '/admin' && pathname.startsWith(item.href));
           return (

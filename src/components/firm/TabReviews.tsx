@@ -7,7 +7,10 @@ import { Button } from "@/components/ui/button";
 export function TabReviews({ firm }: { firm: FirmData }) {
     const ratingDistribution = firm.ratingDistribution || [0, 0, 0, 0, 0];
     const totalRatings = ratingDistribution.reduce((a, b) => a + b, 0);
-    const userReviews = firm.userReviews || [];
+    // Enforce Review Moderation: Only show Approved or Featured reviews publicly
+    const userReviews = (firm.userReviews || []).filter(
+        (r: any) => !r.status || r.status === "Approved" || r.status === "Featured"
+    );
 
     return (
         <div className="space-y-12">

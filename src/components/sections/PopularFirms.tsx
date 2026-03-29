@@ -133,12 +133,13 @@ export function PopularFirms({ firms }: { firms: FirmData[] }) {
     };
 
     const processedFirms = useMemo(() => {
-        let result = [...firms];
+        // Enforce Global Status Engine: Only "Live" firms should ever display here
+        let result = [...firms].filter(f => !f.status || f.status === "Live");
 
         // 1. Apply Pill Filters
         if (activeFilter === "Popular") {
-            // Pseudo-popular logic: sort by review count if possible, otherwise rating
-            result = result.sort((a, b) => b.rating - a.rating);
+            // Explicit Database Curation logic: Show ONLY firms designated as popular, strictly ordered
+            result = result.filter(f => f.is_popular === true).sort((a, b) => (a.popular_order || 0) - (b.popular_order || 0));
         } else if (activeFilter === "Favorite KOS") {
             // Pseudo KOS logic: Firms above 4.8 rating only
             result = result.filter(f => f.rating >= 4.8);
