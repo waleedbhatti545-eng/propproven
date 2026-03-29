@@ -33,6 +33,11 @@ const getPlatformIcon = (platform: string) => {
         case 'matchtrader': domain = 'match-trade.com'; break;
         case 'dxtrade': domain = 'devexperts.com'; break;
         case 'tradelocker': domain = 'tradelocker.com'; break;
+        case 'tradovate': domain = 'tradovate.com'; break;
+        case 'ninjatrader': domain = 'ninjatrader.com'; break;
+        case 'quantower': domain = 'quantower.com'; break;
+        case 'rithmic': domain = 'rithmic.com'; break;
+        case 'sierra chart': domain = 'sierrachart.com'; break;
         default: return null;
     }
     return domain ? `https://www.google.com/s2/favicons?domain=${domain}&sz=64` : null;
@@ -44,7 +49,7 @@ const SORT_OPTIONS = [
     { label: "Max Funding", value: "funding" },
 ];
 
-export default function FirmsClient({ initialFirms }: { initialFirms: any[] }) {
+export default function FirmsClient({ initialFirms, basePath = "/firms" }: { initialFirms: any[], basePath?: string }) {
     const [search, setSearch] = useState("");
     const [sortBy, setSortBy] = useState("rating");
 
@@ -137,7 +142,7 @@ export default function FirmsClient({ initialFirms }: { initialFirms: any[] }) {
                 {/* Firms List - Horizontal Cards */}
                 <div className="space-y-6">
                     {filteredFirms.map((firm, idx) => (
-                        <Link href={`/firms/${firm.slug}`} key={firm.slug} className="block group">
+                        <Link href={`${basePath}/${firm.slug}`} key={firm.slug} className="block group">
                             <div className="relative bg-[#111111]/80 backdrop-blur-xl border border-white/5 rounded-[28px] overflow-hidden transition-all duration-500 hover:border-brand-red/30 hover:shadow-[0_10px_40px_rgba(220,38,38,0.08)]">
 
                                 {/* Rank Number Watermark */}

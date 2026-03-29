@@ -32,6 +32,8 @@ const FOOTER_LINKS = {
 
 export function Footer() {
     const pathname = usePathname();
+    const isFutures = pathname?.startsWith("/futures");
+
     if (pathname?.startsWith("/admin") || pathname?.startsWith("/sign-in") || pathname?.startsWith("/sign-up") || pathname?.startsWith("/login")) return null;
 
     return (
@@ -39,10 +41,10 @@ export function Footer() {
             <div className="container-width px-4 md:px-6">
                 <div className="grid grid-cols-2 gap-8 md:grid-cols-4 lg:grid-cols-5">
                     <div className="col-span-2 lg:col-span-2">
-                        <Link href="/" className="flex items-center gap-2 mb-6">
+                        <Link href={isFutures ? "/futures" : "/"} className="flex items-center gap-2 mb-6">
                             {/* Replaced Text with Real Logo */}
                             <img
-                                src="/images/logo.png"
+                                src={isFutures ? "/images/futures-logo.png" : "/images/logo.png"}
                                 alt="PropProven Logo"
                                 className="h-10 md:h-12 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity"
                             />
@@ -73,13 +75,15 @@ export function Footer() {
                     <div className="flex flex-col gap-4">
                         <h3 className="font-semibold text-white">Product</h3>
                         <ul className="flex flex-col gap-2 text-sm text-muted-foreground">
-                            {FOOTER_LINKS.Product.map((link) => (
+                            {FOOTER_LINKS.Product.map((link) => {
+                                const targetHref = isFutures ? `/futures${link.href}` : link.href;
+                                return (
                                 <li key={link.href}>
-                                    <Link href={link.href} className="hover:text-brand-red transition-colors">
+                                    <Link href={targetHref} className="hover:text-brand-red transition-colors">
                                         {link.label}
                                     </Link>
                                 </li>
-                            ))}
+                            )})}
                         </ul>
                     </div>
 

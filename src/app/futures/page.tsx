@@ -8,14 +8,14 @@ import { supabase } from "@/utils/supabase";
 
 export const revalidate = 60;
 
-export default async function Home() {
+export default async function FuturesHome() {
   const { data: firms } = await supabase.from("firms").select("*, accounts(*), offers(*)");
   
-  // Soft filter to separate Futures without crashing before the DB column is fully migrated
-  const liveFirms = (firms || []).filter(f => f.market_type !== 'futures');
+  // Soft filter to strictly enforce Futures-only. Will be empty until DB is migrated.
+  const liveFirms = (firms || []).filter(f => f.market_type === 'futures');
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen theme-futures">
       <HeroSection />
 
       <div id="featured-firms">

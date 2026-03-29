@@ -40,7 +40,7 @@ export function StickyComparisonDrawer({ firm }: { firm: FirmData }) {
 
                     <div className="hidden sm:block">
                         <div className="font-bold text-white text-sm">{firm.name}</div>
-                        <div className="text-xs text-[#DC2626] font-semibold">
+                        <div className="text-xs text-brand-red font-semibold">
                             {firm.rating} Rating
                         </div>
                     </div>
@@ -57,7 +57,7 @@ export function StickyComparisonDrawer({ firm }: { firm: FirmData }) {
                     </Button>
 
                     <a href={firm.affiliateLink || firm.websiteUrl || "#"} target="_blank" rel="noopener noreferrer">
-                        <Button className="bg-[#DC2626] hover:bg-red-700 text-white font-bold h-9 text-xs rounded-lg shadow-lg shadow-red-900/20">
+                        <Button className="bg-brand-red hover:bg-brand-orange text-white font-bold h-9 text-xs rounded-lg shadow-lg">
                             View Offer
                         </Button>
                     </a>

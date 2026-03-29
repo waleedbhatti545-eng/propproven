@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowDown, Star, Shield, TrendingUp, Award } from "lucide-react";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
 const STATS = [
     { icon: Shield, value: "30+", label: "Verified Firms" },
@@ -17,6 +18,9 @@ const ROTATING_WORDS = ["PROVEN", "TRUSTED", "VERIFIED", "REAL"];
 export function HeroSection() {
     const [currentWordIndex, setCurrentWordIndex] = useState(0);
     const [isAnimating, setIsAnimating] = useState(false);
+    const pathname = usePathname();
+    const isFutures = pathname?.startsWith("/futures");
+    const bgImage = isFutures ? "/images/futures-hero-bg.png" : "/images/cfd-hero-bg.webp";
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -37,7 +41,7 @@ export function HeroSection() {
             <div
                 className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
                 style={{
-                    backgroundImage: `url('http://zainenterprisespakistan.com/wp-content/uploads/2026/01/ChatGPT-Image-Jan-31-2026-04_23_22-PM.png')`,
+                    backgroundImage: `url('${bgImage}')`,
                 }}
             />
 
@@ -58,18 +62,18 @@ export function HeroSection() {
 
                     {/* START TRADING WITH [ANIMATED WORD] FIRMS - Proportionally larger */}
                     <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-wide text-white/90 uppercase">
-                        START TRADING WITH
+                        {isFutures ? "TRADE WITH" : "START TRADING WITH"}
                         <br className="md:hidden" />
                         {" "}
                         <span
-                            className={`inline-block text-[#DC2626] font-black transition-all duration-400 ease-out min-w-[5ch] text-center ${isAnimating
+                            className={`inline-block text-brand-red font-black transition-all duration-400 ease-out min-w-[5ch] text-center ${isAnimating
                                 ? 'opacity-0 translate-y-3 scale-95'
                                 : 'opacity-100 translate-y-0 scale-100'
                                 }`}
                         >
                             {ROTATING_WORDS[currentWordIndex]}
                         </span>
-                        {" "}FIRMS.
+                        {" "}{isFutures ? "FUTURE FIRMS." : "FIRMS."}
                     </h2>
                 </div>
 

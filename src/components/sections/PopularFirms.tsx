@@ -7,6 +7,24 @@ import Link from "next/link";
 import { FirmData } from "@/data/firms";
 import Image from "next/image";
 import ReactCountryFlag from "react-country-flag";
+import { usePathname } from "next/navigation";
+
+const formatFunding = (val: string) => {
+    if (!val) return val;
+    if (val.toUpperCase().includes('M') || val.toUpperCase().includes('K')) {
+        return val.replace(/\s/g, '');
+    }
+    const cleanNum = val.replace(/,/g, '').replace('$', '').trim();
+    const num = parseInt(cleanNum, 10);
+    if (isNaN(num)) return val;
+    
+    if (num >= 1000000) {
+        return `$${num / 1000000}M`;
+    } else if (num >= 1000) {
+        return `$${num / 1000}K`;
+    }
+    return `$${num}`;
+};
 
 // Helper to map country code to flag emoji (simple version) or visual
 const countryFlags: Record<string, string> = {
@@ -62,6 +80,11 @@ const getPlatformIcon = (platform: string) => {
         case 'matchtrader': domain = 'match-trade.com'; break;
         case 'dxtrade': domain = 'devexperts.com'; break;
         case 'tradelocker': domain = 'tradelocker.com'; break;
+        case 'tradovate': domain = 'tradovate.com'; break;
+        case 'ninjatrader': domain = 'ninjatrader.com'; break;
+        case 'quantower': domain = 'quantower.com'; break;
+        case 'rithmic': domain = 'rithmic.com'; break;
+        case 'sierra chart': domain = 'sierrachart.com'; break;
         default: return null;
     }
     return domain ? `https://www.google.com/s2/favicons?domain=${domain}&sz=64` : null;
@@ -106,6 +129,9 @@ const OperationYearsWidget = ({ years }: { years: number }) => {
 };
 
 export function PopularFirms({ firms }: { firms: FirmData[] }) {
+    const pathname = usePathname();
+    const isFutures = pathname?.startsWith("/futures");
+    const firmBasePath = isFutures ? "/futures/firms" : "/firms";
     const [activeFilter, setActiveFilter] = useState("Popular");
     const [sortCol, setSortCol] = useState<string | null>(null);
     const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
@@ -288,7 +314,8 @@ export function PopularFirms({ firms }: { firms: FirmData[] }) {
                             </thead>
                             <tbody>
                                 {displayedFirms.map((firm, index) => {
-                                    const codeToCopy = firm.discountCode || "APPLY";
+                                    const codeToCopy = firm.discountCode || "PROVEN";
+                                    const displayDiscount = firm.discountAmount || "EXCLUSIVE";
                                     const isCopied = copiedStates[firm.slug];
 
                                     return (
@@ -313,7 +340,7 @@ export function PopularFirms({ firms }: { firms: FirmData[] }) {
                                         <td className="p-2 md:p-4 bg-[#111111] border-y border-[#222] group-hover:border-y-brand-red group-hover:bg-[#151515] transition-all align-middle">
                                             <div className="flex flex-col">
                                                 <div className="flex items-center gap-1 md:gap-2 mb-1">
-                                                    <Link href={`/firms/${firm.slug}`} className="font-black text-white text-[14px] md:text-[18px] leading-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-brand-red transition-all cursor-pointer">
+                                                    <Link href={`${firmBasePath}/${firm.slug}`} className="font-black text-white text-[14px] md:text-[18px] leading-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-brand-red transition-all cursor-pointer">
                                                         {firm.name}
                                                     </Link>
                                                     {firm.trustpilot && <CheckCircle2 className="w-4 h-4 text-[#10B981] fill-[#10B981]/10 drop-shadow-[0_0_8px_rgba(16,185,129,0.3)]" />}
@@ -415,7 +442,7 @@ export function PopularFirms({ firms }: { firms: FirmData[] }) {
                                             {firm.maxFunding ? (
                                                 <div className="inline-flex h-[32px] md:h-[40px] px-3 md:px-5 rounded-xl bg-gradient-to-b from-[#0f0f0f] to-[#050505] border border-emerald-500/20 text-emerald-400 text-[12px] md:text-[14px] font-black uppercase tracking-widest items-center justify-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_0_10px_rgba(16,185,129,0.05)] group-hover:border-emerald-500/50 group-hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),0_0_20px_rgba(16,185,129,0.2)] transition-all mx-auto relative cursor-help group/funding overflow-hidden">
                                                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-emerald-500/5 to-transparent translate-x-[-100%] group-hover/funding:translate-x-[100%] transition-transform duration-1000" />
-                                                    <span className="relative z-10">{firm.maxFunding.replace(/\s/g, '')}</span>
+                                                    <span className="relative z-10">{formatFunding(firm.maxFunding)}</span>
                                                     <div className="absolute bottom-full mb-2 bg-[#111] text-white text-[10px] py-1 px-2 rounded-md font-bold opacity-0 group-hover/funding:opacity-100 pointer-events-none transition-opacity whitespace-nowrap shadow-[0_5px_15px_rgba(0,0,0,0.5)] border border-white/10 z-50 uppercase tracking-widest flex items-center gap-1">
                                                         <Award className="w-3 h-3 text-emerald-500" /> Max Funding Plan
                                                     </div>
@@ -427,45 +454,41 @@ export function PopularFirms({ firms }: { firms: FirmData[] }) {
 
                                         {/* Column 8: PROMO Desk / OFFERS */}
                                         <td className="p-2 md:p-4 bg-[#111111] border-y border-[#222] group-hover:border-y-brand-red group-hover:bg-[#151515] transition-all align-middle text-center">
-                                            {firm.discountAmount ? (
-                                                <div className="inline-flex flex-col w-[90px] md:w-[120px] rounded-xl overflow-hidden group/promo border border-white/10 group-hover:border-brand-red/50 shadow-lg group-hover:shadow-[0_0_20px_rgba(220,38,38,0.2)] transition-all transform hover:scale-105 mx-auto">
-                                                    {/* Top Half - Red Gradient */}
-                                                    <div className="bg-gradient-to-r from-brand-red to-brand-orange px-2 py-1.5 md:px-3 md:py-2 flex items-center justify-center relative overflow-hidden">
-                                                        <div className="absolute inset-0 bg-white/20 translate-y-full group-hover/promo:translate-y-0 transition-transform duration-300 pointer-events-none" />
-                                                        <span className="text-[10px] md:text-[12px] font-black text-white leading-tight uppercase relative z-10 group-hover/promo:scale-110 transition-transform select-none">
-                                                            {firm.discountAmount}
-                                                            {(!firm.discountAmount.toLowerCase().includes('off') && !firm.discountAmount.includes('%')) && ' OFF'}
-                                                        </span>
-                                                    </div>
-                                                    {/* Bottom Toggle Half - Dynamic Admin Code (Clipboard Copier) */}
-                                                    <div 
-                                                        onClick={(e) => handleCopy(firm.slug, codeToCopy, e)}
-                                                        className="bg-[#050505] cursor-pointer hover:bg-[#1a1a1a] px-2 py-2 flex items-center justify-center gap-1.5 border-t border-brand-red/30 relative transition-colors"
-                                                    >
-                                                        {isCopied ? (
-                                                            <div className="flex items-center gap-1 animate-in fade-in zoom-in text-emerald-500">
-                                                                <Check className="w-3 h-3" />
-                                                                <span className="text-[9px] font-black tracking-widest uppercase">Copied!</span>
-                                                            </div>
-                                                        ) : (
-                                                            <>
-                                                                <span className="text-[9px] font-black tracking-widest text-[#AAA] group-hover/promo:text-white uppercase transition-colors">
-                                                                    {codeToCopy}
-                                                                </span>
-                                                                <Copy className="w-3 h-3 text-brand-red hidden group-hover/promo:block" />
-                                                            </>
-                                                        )}
-                                                    </div>
+                                            <div className="inline-flex flex-col w-[90px] md:w-[120px] rounded-xl overflow-hidden group/promo border border-white/10 group-hover:border-brand-red/50 shadow-lg group-hover:shadow-[0_0_20px_rgba(220,38,38,0.2)] transition-all transform hover:scale-105 mx-auto">
+                                                {/* Top Half - Red Gradient */}
+                                                <div className="bg-gradient-to-r from-brand-red to-brand-orange px-2 py-1.5 md:px-3 md:py-2 flex items-center justify-center relative overflow-hidden">
+                                                    <div className="absolute inset-0 bg-white/20 translate-y-full group-hover/promo:translate-y-0 transition-transform duration-300 pointer-events-none" />
+                                                    <span className="text-[10px] md:text-[12px] font-black text-white leading-tight uppercase relative z-10 group-hover/promo:scale-110 transition-transform select-none">
+                                                        {displayDiscount}
+                                                        {(displayDiscount !== "EXCLUSIVE" && !displayDiscount.toLowerCase().includes('off') && !displayDiscount.includes('%')) && ' OFF'}
+                                                    </span>
                                                 </div>
-                                            ) : (
-                                                <span className="text-[10px] md:text-[12px] font-black text-[#888] bg-[#0A0A0A] px-2 py-1.5 md:px-4 md:py-2 rounded-lg border border-white/5 uppercase tracking-widest opacity-80 mx-auto block w-max select-none">None</span>
-                                            )}
+                                                {/* Bottom Toggle Half - Dynamic Admin Code (Clipboard Copier) */}
+                                                <div 
+                                                    onClick={(e) => handleCopy(firm.slug, codeToCopy, e)}
+                                                    className="bg-[#050505] cursor-pointer hover:bg-[#1a1a1a] px-2 py-2 flex items-center justify-center gap-1.5 border-t border-brand-red/30 relative transition-colors"
+                                                >
+                                                    {isCopied ? (
+                                                        <div className="flex items-center gap-1 animate-in fade-in zoom-in text-emerald-500">
+                                                            <Check className="w-3 h-3" />
+                                                            <span className="text-[9px] font-black tracking-widest uppercase">Copied!</span>
+                                                        </div>
+                                                    ) : (
+                                                        <>
+                                                            <span className="text-[9px] font-black tracking-widest text-[#AAA] group-hover/promo:text-white uppercase transition-colors">
+                                                                {codeToCopy}
+                                                            </span>
+                                                            <Copy className="w-3 h-3 text-brand-red hidden group-hover/promo:block" />
+                                                        </>
+                                                    )}
+                                                </div>
+                                            </div>
                                         </td>
 
                                         {/* Column 9: Direct Action */}
                                         <td className="p-2 pr-4 md:p-4 md:pr-6 bg-[#111111] rounded-r-[1.2rem] md:rounded-r-[1.5rem] border border-[#222] group-hover:border-brand-red border-l-0 group-hover:bg-[#151515] group-hover:shadow-[10px_10px_30px_rgba(220,38,38,0.15)] transition-all align-middle text-right">
                                             <div className="flex items-center justify-end">
-                                                <Link href={`/firms/${firm.slug}`} className="block">
+                                                <Link href={`${firmBasePath}/${firm.slug}`} className="block">
                                                     <Button className="h-[32px] md:h-[40px] px-4 md:px-6 rounded-xl bg-white text-black text-[11px] md:text-[13px] font-black tracking-widest uppercase hover:bg-brand-red hover:text-white shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_30px_rgba(220,38,38,0.4)] border-none transition-all transform hover:scale-105 flex items-center gap-1.5 md:gap-2 group/btn">
                                                         Visit Firm
                                                         <div className="w-4 h-4 rounded-full bg-black/10 flex items-center justify-center group-hover/btn:bg-white/20 transition-colors">

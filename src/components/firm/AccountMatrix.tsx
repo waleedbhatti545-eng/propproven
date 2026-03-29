@@ -10,8 +10,16 @@ interface AccountMatrixProps {
 }
 
 export function AccountMatrix({ accounts, color }: AccountMatrixProps) {
-    const [selectedSize, setSelectedSize] = useState(accounts[0].size);
-    const activeAccount = accounts.find(a => a.size === selectedSize) || accounts[0];
+    const [selectedSize, setSelectedSize] = useState(accounts?.[0]?.size || '');
+    const activeAccount = accounts?.find(a => a.size === selectedSize) || accounts?.[0];
+
+    if (!accounts || accounts.length === 0 || !activeAccount) {
+        return (
+            <div className="bg-[#0a0a0a] rounded-3xl border border-white/5 p-8 text-center text-gray-500">
+                <p className="text-sm font-medium">No account tiers available for this firm yet.</p>
+            </div>
+        );
+    }
 
     // Safe color map for Tailwind to detect classes
     const colorMap: Record<string, string> = {
@@ -66,7 +74,7 @@ export function AccountMatrix({ accounts, color }: AccountMatrixProps) {
 
                     {/* Details List */}
                     <div className="grid grid-cols-2 gap-4">
-                        <DetailItem label="Profit Target" value={`${activeAccount.targetPhase1} / ${activeAccount.targetPhase2}`} />
+                        <DetailItem label="Profit Target" value={`${activeAccount.targetPhase1 || 'N/A'} / ${activeAccount.targetPhase2 || 'N/A'}`} />
                         <DetailItem label="Daily Loss" value={activeAccount.maxDailyLoss} highlight />
                         <DetailItem label="Max Loss" value={activeAccount.maxTotalLoss} highlight />
                         <DetailItem label="Leverage" value={activeAccount.leverage} />

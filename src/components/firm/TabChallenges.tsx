@@ -19,16 +19,16 @@ export function TabChallenges({ firm }: { firm: FirmData }) {
     };
 
     // Filter Logic
-    const filteredAccounts = firm.accounts.filter(acc => {
+    const accounts = firm.accounts || [];
+    const filteredAccounts = accounts.filter(acc => {
         if (filter === "All") return true;
-        // Exact match for "1-Step", "2-Step", etc.
         return acc.type === filter;
     }).sort((a, b) => a.price - b.price);
 
     // Dynamic Counts for Buttons
     const getCount = (type: string) => {
-        if (type === "All") return firm.accounts.length;
-        return firm.accounts.filter(a => a.type === type).length;
+        if (type === "All") return accounts.length;
+        return accounts.filter(a => a.type === type).length;
     };
 
     const filters = ["All", "1-Step", "2-Step", "3-Step", "Instant"];

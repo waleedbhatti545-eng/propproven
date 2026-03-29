@@ -5,7 +5,9 @@ export const revalidate = 60;
 
 export default async function FirmsPage() {
     const { data: firms } = await supabase.from("firms").select("*, accounts(*), offers(*)");
-    const liveFirms = firms || [];
+    
+    // Soft filter to separate Futures without crashing before the DB column is fully migrated
+    const liveFirms = (firms || []).filter(f => f.market_type !== 'futures');
 
     return <FirmsClient initialFirms={liveFirms} />;
 }

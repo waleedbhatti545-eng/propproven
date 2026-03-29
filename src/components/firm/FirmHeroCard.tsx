@@ -31,11 +31,10 @@ export function FirmHeroCard({ firm }: { firm: FirmData }) {
             {/* IMMERSIVE BACKGROUND: Blurry Logo Mesh - RED BRANDING */}
             <div className="absolute inset-0 w-full h-full pointer-events-none select-none overflow-hidden">
                 {/* Right/Bottom Glow - FORCED RED */}
-                <div className="absolute -right-[10%] -bottom-[20%] w-[60%] h-[80%] opacity-20 blur-[120px] rounded-full mix-blend-screen animate-pulse-slow"
-                    style={{ backgroundColor: '#ff0000' }}></div>
+                <div className="absolute -right-[10%] -bottom-[20%] w-[60%] h-[80%] opacity-20 blur-[120px] rounded-full mix-blend-screen animate-pulse-slow bg-brand-red"></div>
 
                 {/* Left/Top Tint - FORCED RED */}
-                <div className="absolute -left-[10%] top-0 w-[50%] h-[50%] bg-red-900/10 blur-[100px] rounded-full"></div>
+                <div className="absolute -left-[10%] top-0 w-[50%] h-[50%] bg-brand-red/10 blur-[100px] rounded-full"></div>
             </div>
 
             <div className="relative z-10 max-w-7xl mx-auto flex items-center gap-2 text-xs text-gray-400 mb-8 pl-1 font-medium tracking-wide uppercase">
@@ -183,7 +182,7 @@ export function FirmHeroCard({ firm }: { firm: FirmData }) {
                                         Visit Website <ExternalLink className="w-5 h-5" />
                                     </span>
                                     {/* Hover Gradient Red */}
-                                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-red-500/20 to-transparent -translate-x-full group-hover:animate-shimmer" />
+                                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-brand-red/20 to-transparent -translate-x-full group-hover:animate-shimmer" />
                                 </Button>
                             </a>
 
@@ -192,7 +191,7 @@ export function FirmHeroCard({ firm }: { firm: FirmData }) {
                                 <div className="bg-[#1A1A1A]/80 border border-white/10 rounded-xl p-4 flex items-center justify-between gap-4 backdrop-blur-md">
                                     <div>
                                         <div className="text-[10px] text-gray-500 uppercase tracking-widest font-bold mb-0.5">Discount Code</div>
-                                        <div className="text-red-400 font-mono text-sm font-bold tracking-wider">{firm.discountCode}</div>
+                                        <div className="text-brand-red font-mono text-sm font-bold tracking-wider">{firm.discountCode}</div>
                                     </div>
                                     <button
                                         onClick={handleCopy}

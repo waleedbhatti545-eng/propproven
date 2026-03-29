@@ -25,12 +25,12 @@ export default function FirmPageClient({ firm }: { firm: any }) {
     const [activeTab, setActiveTab] = useState("overview"); // Default tab
 
     useEffect(() => {
-        if (firm && firm.accounts.length > 0) {
+        if (firm && firm.accounts && firm.accounts.length > 0) {
             setSelectedAccount(firm.accounts[0]);
         }
     }, [firm]);
 
-    const activeAccount = selectedAccount || firm.accounts?.[0];
+    const activeAccount = selectedAccount || firm.accounts?.[0] || null;
 
     return (
         <div className="min-h-screen bg-[#0F0F0F] text-white font-sans selection:bg-purple-500/30">

@@ -5,6 +5,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Toaster } from "@/components/ui/sonner";
 import { InteractiveSideGlow } from "@/components/ui/InteractiveSideGlow";
+import { MarketThemeSetter } from "@/components/layout/MarketThemeSetter";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -28,6 +29,7 @@ export default function RootLayout({
         className={`${poppins.variable} font-sans antialiased bg-background text-foreground min-h-screen flex flex-col`}
         suppressHydrationWarning
       >
+        <MarketThemeSetter />
         <Header />
         <main className="flex-1 flex flex-col w-full">
           {children}
