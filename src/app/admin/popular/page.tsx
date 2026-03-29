@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { supabase } from "@/utils/supabase";
+import { useAdminMarket } from "@/components/admin/AdminMarketContext";
 import { Flame, GripVertical, ChevronUp, ChevronDown, Plus, Minus, Save, Search, RefreshCw, TrendingUp } from "lucide-react";
 import { FirmData } from "@/data/firms";
 import { toast } from "sonner";
@@ -14,13 +15,23 @@ export default function AdminPopularPage() {
   const [popularFirms, setPopularFirms] = useState<FirmData[]>([]);
   const [availableFirms, setAvailableFirms] = useState<FirmData[]>([]);
 
+  const { marketType } = useAdminMarket();
+
   useEffect(() => {
     fetchFirms();
-  }, []);
+  }, [marketType]);
 
   async function fetchFirms() {
     setLoading(true);
-    const { data, error } = await supabase.from("firms").select("*");
+    let query = supabase.from("firms").select("*");
+    
+    if (marketType === "futures") {
+      query = query.eq("market_type", "futures");
+    } else {
+      query = query.or("market_type.eq.forex,market_type.is.null");
+    }
+    
+    const { data, error } = await query;
     
     if (error) {
       toast.error("Error loading firms. Did you run the SQL snippet?");

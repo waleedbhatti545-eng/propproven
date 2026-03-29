@@ -2,11 +2,18 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { supabase } from "@/utils/supabase";
+import { useAdminMarket } from "@/components/admin/AdminMarketContext";
 import { LayoutDashboard, Building2, Settings, LogOut, Ticket, Star, Flame, MessageSquareWarning, BarChart3, Mail, MousePointerClick, Bell, Users } from "lucide-react";
 
 export function AdminSidebar() {
   const pathname = usePathname();
   const router = useRouter();
+  const { marketType, setMarketType } = useAdminMarket();
+  
+  const isFutures = marketType === "futures";
+  const activeColorBg = isFutures ? "bg-[#06b6d4]" : "bg-brand-red";
+  const activeColorText = isFutures ? "text-[#06b6d4]" : "text-brand-red";
+  const activeColorShadow = isFutures ? "shadow-[0_0_12px_rgba(6,182,212,0.8)]" : "shadow-[0_0_12px_rgba(220,38,38,0.8)]";
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
@@ -42,12 +49,32 @@ export function AdminSidebar() {
         />
         <div className="mt-3 flex items-center justify-center gap-2">
           <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-red opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-red"></span>
+            <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${activeColorBg}`}></span>
+            <span className={`relative inline-flex rounded-full h-2 w-2 ${activeColorBg}`}></span>
           </span>
           <span className="text-[10px] tracking-[0.2em] text-gray-500 font-semibold uppercase">
             Admin Workspace
           </span>
+        </div>
+
+        {/* Global Market Switcher */}
+        <div className="mt-6 flex bg-[#0A0A0A] border border-white/5 p-1 rounded-xl items-center w-full shadow-inner shadow-black relative overflow-hidden">
+            <button 
+                onClick={() => setMarketType("forex")}
+                className={`flex-1 text-center py-2.5 rounded-lg text-[11px] font-black uppercase tracking-widest transition-all z-10 ${
+                    !isFutures ? 'bg-brand-red text-white shadow-[0_0_15px_rgba(220,38,38,0.4)]' : 'text-neutral-500 hover:text-white hover:bg-white/5'
+                }`}
+            >
+                Forex
+            </button>
+            <button 
+                onClick={() => setMarketType("futures")}
+                className={`flex-1 text-center py-2.5 rounded-lg text-[11px] font-black uppercase tracking-widest transition-all z-10 ${
+                    isFutures ? 'bg-[#06b6d4] text-white shadow-[0_0_15px_rgba(6,182,212,0.4)]' : 'text-neutral-500 hover:text-white hover:bg-white/5'
+                }`}
+            >
+                Futures
+            </button>
         </div>
       </div>
 
@@ -68,10 +95,10 @@ export function AdminSidebar() {
             >
               {/* Active Indicator Glow */}
               {isActive && (
-                <div className="absolute left-0 top-1/2 -translate-y-1/2 h-1/2 w-1 bg-brand-red rounded-r-full shadow-[0_0_12px_rgba(220,38,38,0.8)]" />
+                <div className={`absolute left-0 top-1/2 -translate-y-1/2 h-1/2 w-1 rounded-r-full ${activeColorBg} ${activeColorShadow}`} />
               )}
               
-              <item.icon className={`h-5 w-5 transition-transform duration-300 ${isActive ? "scale-110 text-brand-red" : "group-hover:scale-110 group-hover:text-brand-orange"}`} />
+              <item.icon className={`h-5 w-5 transition-transform duration-300 ${isActive ? `scale-110 ${activeColorText}` : "group-hover:scale-110 group-hover:text-white"}`} />
               <span className="transition-transform duration-300 group-hover:translate-x-1">{item.name}</span>
             </Link>
           );

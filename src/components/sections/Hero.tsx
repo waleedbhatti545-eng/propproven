@@ -85,7 +85,7 @@ export function HeroSection() {
                             <Shield className="w-3.5 h-3.5 text-brand-red" />
                         </div>
                         <span className="text-brand-red font-bold text-xs md:text-sm">30+</span>
-                        <span className="text-gray-400 text-[10px] md:text-sm whitespace-nowrap">Verified Prop Firms</span>
+                        <span className="text-gray-400 text-[10px] md:text-sm whitespace-nowrap">Verified <span className="hidden sm:inline">Prop </span>Firms</span>
                     </div>
 
                     <div className="flex items-center gap-2 px-3 py-2.5 md:px-4 bg-white/5 border border-white/10 rounded-full backdrop-blur-sm">

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { supabase } from "@/utils/supabase";
+import { useAdminMarket } from "@/components/admin/AdminMarketContext";
 import Link from "next/link";
 import { Plus, Edit2, Trash2, Calendar, MapPin, Building2, Search, ExternalLink } from "lucide-react";
 import { FirmData } from "@/data/firms";
@@ -12,9 +13,11 @@ export default function AdminFirmsPage() {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
 
+  const { marketType } = useAdminMarket();
+
   useEffect(() => {
     loadFirms();
-  }, []);
+  }, [marketType]);
 
   useEffect(() => {
     if (searchTerm === "") {
@@ -26,7 +29,15 @@ export default function AdminFirmsPage() {
 
   async function loadFirms() {
     setLoading(true);
-    const { data, error } = await supabase.from("firms").select("*").order("name");
+    let query = supabase.from("firms").select("*").order("name");
+    
+    if (marketType === "futures") {
+      query = query.eq("market_type", "futures");
+    } else {
+      query = query.or("market_type.eq.forex,market_type.is.null");
+    }
+    
+    const { data, error } = await query;
     if (!error && data) {
       setFirms(data as FirmData[]);
       setFilteredFirms(data as FirmData[]);

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { supabase } from "@/utils/supabase";
+import { useAdminMarket } from "@/components/admin/AdminMarketContext";
 import { Ticket, Search, Edit2, Percent, CalendarDays, X, Save, Trash2 } from "lucide-react";
 import { FirmData } from "@/data/firms";
 import { toast } from "sonner";
@@ -16,13 +17,23 @@ export default function AdminPromosPage() {
   const [selectedFirm, setSelectedFirm] = useState<FirmData | null>(null);
   const [isSaving, setIsSaving] = useState(false);
 
+  const { marketType } = useAdminMarket();
+
   useEffect(() => {
     fetchFirms();
-  }, []);
+  }, [marketType]);
 
   async function fetchFirms() {
     setLoading(true);
-    const { data, error } = await supabase.from("firms").select("*").order("name", { ascending: true });
+    let query = supabase.from("firms").select("*").order("name", { ascending: true });
+    
+    if (marketType === "futures") {
+      query = query.eq("market_type", "futures");
+    } else {
+      query = query.or("market_type.eq.forex,market_type.is.null");
+    }
+    
+    const { data, error } = await query;
     if (!error && data) {
       setFirms(data as FirmData[]);
     } else {

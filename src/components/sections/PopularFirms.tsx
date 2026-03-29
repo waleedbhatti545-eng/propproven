@@ -109,7 +109,7 @@ const OperationYearsWidget = ({ years }: { years: number }) => {
                             cy="18"
                             r={radius}
                             fill="none"
-                            stroke={isActive ? "#DC2626" : "#2A2A2A"}
+                            stroke={isActive ? "var(--brand-red)" : "#2A2A2A"}
                             strokeWidth="3.5"
                             strokeDasharray={`${segmentWidth - gap} ${circumference}`}
                             strokeDashoffset={-i * segmentWidth}
@@ -322,7 +322,7 @@ export function PopularFirms({ firms }: { firms: FirmData[] }) {
                                     <tr key={firm.slug} className="group transition-all duration-500 hover:translate-y-[-4px]">
 
                                         {/* Column 1: Rank / Logo Wrapper */}
-                                        <td className="p-2 md:p-4 bg-[#111111] rounded-l-[1.2rem] md:rounded-l-[1.5rem] border border-[#222] group-hover:border-brand-red group-hover:bg-[#151515] group-hover:shadow-[0_10px_30px_rgba(220,38,38,0.15)] border-r-0 transition-all align-middle relative overflow-hidden">
+                                        <td className="p-2 md:py-4 md:px-2.5 bg-[#111111] rounded-l-[1.2rem] md:rounded-l-[1.5rem] border border-[#222] group-hover:border-brand-red group-hover:bg-[#151515] group-hover:shadow-[0_10px_30px_rgba(220,38,38,0.15)] border-r-0 transition-all align-middle relative overflow-hidden">
                                             {/* Subtle internal glow on hover */}
                                             <div className="absolute inset-0 bg-gradient-to-r from-brand-red/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                                             
@@ -337,7 +337,7 @@ export function PopularFirms({ firms }: { firms: FirmData[] }) {
                                         </td>
 
                                         {/* Column 2: Name & Status */}
-                                        <td className="p-2 md:p-4 bg-[#111111] border-y border-[#222] group-hover:border-y-brand-red group-hover:bg-[#151515] transition-all align-middle">
+                                        <td className="p-2 md:py-4 md:px-2.5 bg-[#111111] border-y border-[#222] group-hover:border-y-brand-red group-hover:bg-[#151515] transition-all align-middle">
                                             <div className="flex flex-col">
                                                 <div className="flex items-center gap-1 md:gap-2 mb-1">
                                                     <Link href={`${firmBasePath}/${firm.slug}`} className="font-black text-white text-[14px] md:text-[18px] leading-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-brand-red transition-all cursor-pointer">
@@ -353,7 +353,7 @@ export function PopularFirms({ firms }: { firms: FirmData[] }) {
                                         </td>
 
                                         {/* Column 3: Trust Metrics */}
-                                        <td className="p-2 md:p-4 bg-[#111111] border-y border-[#222] group-hover:border-y-brand-red group-hover:bg-[#151515] transition-all align-middle">
+                                        <td className="p-2 md:py-4 md:px-2.5 bg-[#111111] border-y border-[#222] group-hover:border-y-brand-red group-hover:bg-[#151515] transition-all align-middle">
                                             <div className="flex flex-col justify-center">
                                                 <div className="flex items-center gap-1 md:gap-2 mb-1">
                                                     <div className="flex gap-[1px]">
@@ -368,7 +368,7 @@ export function PopularFirms({ firms }: { firms: FirmData[] }) {
                                         </td>
 
                                         {/* Column 4: Base Country */}
-                                        <td className="p-2 md:p-4 bg-[#111111] border-y border-[#222] group-hover:border-y-brand-red group-hover:bg-[#151515] transition-all align-middle">
+                                        <td className="p-2 md:py-4 md:px-2.5 bg-[#111111] border-y border-[#222] group-hover:border-y-brand-red group-hover:bg-[#151515] transition-all align-middle">
                                             <div className="flex items-center gap-2 md:gap-3 bg-white/5 px-2 py-1 md:px-3 md:py-1.5 rounded-lg border border-white/5 inline-flex shadow-inner">
                                                 {firm.countryCode ? (
                                                     <div className="w-3 h-3 md:w-4 md:h-4 rounded-sm overflow-hidden shrink-0 relative flex items-center justify-center">
@@ -394,12 +394,12 @@ export function PopularFirms({ firms }: { firms: FirmData[] }) {
                                         </td>
 
                                         {/* Column 4.5: Years Operational */}
-                                        <td className="p-2 md:p-4 bg-[#111111] border-y border-[#222] group-hover:border-y-brand-red group-hover:bg-[#151515] transition-all align-middle text-center relative z-0">
+                                        <td className="p-2 md:py-4 md:px-2.5 bg-[#111111] border-y border-[#222] group-hover:border-y-brand-red group-hover:bg-[#151515] transition-all align-middle text-center relative z-0">
                                             <OperationYearsWidget years={firm.yearsOperational || 1} />
                                         </td>
 
                                         {/* Column 5: Assets Matrix */}
-                                        <td className="p-2 md:p-4 bg-[#111111] border-y border-[#222] group-hover:border-y-brand-red group-hover:bg-[#151515] transition-all align-middle">
+                                        <td className="p-2 md:py-4 md:px-2.5 bg-[#111111] border-y border-[#222] group-hover:border-y-brand-red group-hover:bg-[#151515] transition-all align-middle">
                                             <div className="grid grid-cols-2 gap-1.5 w-max">
                                                 {(firm.instruments || ["Forex", "Crypto", "Indices"]).slice(0, 4).map(asset => {
                                                     const displayAsset = asset === 'Forex' ? 'FX' : asset;
@@ -416,7 +416,7 @@ export function PopularFirms({ firms }: { firms: FirmData[] }) {
                                         </td>
 
                                         {/* Column 6: Platforms */}
-                                        <td className="p-2 md:p-4 bg-[#111111] border-y border-[#222] group-hover:border-y-brand-red group-hover:bg-[#151515] transition-all align-middle">
+                                        <td className="p-2 md:py-4 md:px-2.5 bg-[#111111] border-y border-[#222] group-hover:border-y-brand-red group-hover:bg-[#151515] transition-all align-middle">
                                             <div className="grid grid-cols-2 gap-1.5 md:gap-2 w-max">
                                                 {firm.platformNames?.slice(0, 3).map((platform, i) => {
                                                     const iconUrl = getPlatformIcon(platform);
@@ -438,7 +438,7 @@ export function PopularFirms({ firms }: { firms: FirmData[] }) {
                                         </td>
 
                                         {/* Column 7: Max Funding */}
-                                        <td className="p-2 md:p-4 bg-[#111111] border-y border-[#222] group-hover:border-y-brand-red group-hover:bg-[#151515] transition-all align-middle text-center">
+                                        <td className="p-2 md:py-4 md:px-2.5 bg-[#111111] border-y border-[#222] group-hover:border-y-brand-red group-hover:bg-[#151515] transition-all align-middle text-center">
                                             {firm.maxFunding ? (
                                                 <div className="inline-flex h-[32px] md:h-[40px] px-3 md:px-5 rounded-xl bg-gradient-to-b from-[#0f0f0f] to-[#050505] border border-emerald-500/20 text-emerald-400 text-[12px] md:text-[14px] font-black uppercase tracking-widest items-center justify-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_0_10px_rgba(16,185,129,0.05)] group-hover:border-emerald-500/50 group-hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),0_0_20px_rgba(16,185,129,0.2)] transition-all mx-auto relative cursor-help group/funding overflow-hidden">
                                                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-emerald-500/5 to-transparent translate-x-[-100%] group-hover/funding:translate-x-[100%] transition-transform duration-1000" />
@@ -453,8 +453,8 @@ export function PopularFirms({ firms }: { firms: FirmData[] }) {
                                         </td>
 
                                         {/* Column 8: PROMO Desk / OFFERS */}
-                                        <td className="p-2 md:p-4 bg-[#111111] border-y border-[#222] group-hover:border-y-brand-red group-hover:bg-[#151515] transition-all align-middle text-center">
-                                            <div className="inline-flex flex-col w-[90px] md:w-[120px] rounded-xl overflow-hidden group/promo border border-white/10 group-hover:border-brand-red/50 shadow-lg group-hover:shadow-[0_0_20px_rgba(220,38,38,0.2)] transition-all transform hover:scale-105 mx-auto">
+                                        <td className="p-2 md:py-4 md:px-2.5 bg-[#111111] border-y border-[#222] group-hover:border-y-brand-red group-hover:bg-[#151515] transition-all align-middle text-center">
+                                            <div className="inline-flex flex-col rounded-xl overflow-hidden group/promo border border-white/10 group-hover:border-brand-red/50 shadow-lg group-hover:shadow-[0_0_20px_rgba(220,38,38,0.2)] transition-all transform hover:scale-105 mx-auto">
                                                 {/* Top Half - Red Gradient */}
                                                 <div className="bg-gradient-to-r from-brand-red to-brand-orange px-2 py-1.5 md:px-3 md:py-2 flex items-center justify-center relative overflow-hidden">
                                                     <div className="absolute inset-0 bg-white/20 translate-y-full group-hover/promo:translate-y-0 transition-transform duration-300 pointer-events-none" />
