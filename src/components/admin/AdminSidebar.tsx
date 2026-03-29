@@ -3,7 +3,7 @@ import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { supabase } from "@/utils/supabase";
 import { useAdminMarket } from "@/components/admin/AdminMarketContext";
-import { LayoutDashboard, Building2, Settings, LogOut, Ticket, Star, Flame, MessageSquareWarning, BarChart3, Mail, MousePointerClick, Bell, Users } from "lucide-react";
+import { LayoutDashboard, Building2, Settings, LogOut, Ticket, Star, Flame, MessageSquareWarning, BarChart3, Mail, MousePointerClick, Bell, Users, FileCheck2 } from "lucide-react";
 
 export function AdminSidebar() {
   const pathname = usePathname();
@@ -32,6 +32,7 @@ export function AdminSidebar() {
     { name: "Promo Clicks", href: "/admin/promo-analytics", icon: MousePointerClick },
     { name: "Notifications", href: "/admin/notifications", icon: Bell },
     { name: "Team", href: "/admin/team", icon: Users },
+    { name: "Firm Applications", href: "/admin/applications", icon: FileCheck2 },
     { name: "Global Settings", href: "/admin/settings", icon: Settings },
   ];
 
